@@ -1,9 +1,11 @@
 # standard library
 import os
+import sys
 from contextlib import suppress
 
 # 3rd party
 import xdg.BaseDirectory
+from loguru import logger
 
 
 def _first_existing(paths):
@@ -13,6 +15,7 @@ def _first_existing(paths):
             for path in paths \
             if os.path.exists(path)
         ))
+
 
 # dir
 DATA_DIR = xdg.BaseDirectory.save_data_path('betanin')
@@ -25,4 +28,4 @@ BEETS_CONFIG_PATH = _first_existing((
     os.path.join(BEETS_DIR, 'config.yaml'),
 ))
 DB_PATH = os.path.join(DATA_DIR, 'betanin.db')
-NOTIFICATION_CONFIG_PATH = os.path.join(CONFIG_DIR, 'notifications.toml')
+CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.toml')

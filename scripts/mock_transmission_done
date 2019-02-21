@@ -11,4 +11,5 @@ curl \
     --request POST \
     -d "path=$TR_TORRENT_DIR" \
     -d "name=$TR_TORRENT_NAME" \
+    -H "Authorization: Bearer $TOKEN" \
     "http://localhost:5000/api/torrents/$TR_TORRENT_HASH"

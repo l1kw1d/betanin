@@ -2,6 +2,7 @@
 from betanin.api.rest.namespaces import beets_ns
 from betanin.api.rest.namespaces import torrents_ns
 from betanin.api.rest.namespaces import notifications_ns
+from betanin.api.rest.namespaces import authentication_ns
 
 
 # for importing a torrent
@@ -60,13 +61,26 @@ notification_service_list.add_argument(
     help='`the list of NotificationService models`',
 )
 
-# for updating notification general settings
-notification_general = notifications_ns.parser()
-notification_general.add_argument(
+
+# for updating notification strings settings
+notification_strings = notifications_ns.parser()
+notification_strings.add_argument(
     'title', type=str, location='json',
     help='`the new title of notifications`',
 )
-notification_general.add_argument(
+notification_strings.add_argument(
     'body', type=str, location='json',
     help='`the new body of notifications`',
+)
+
+
+# for logging the user and getting a jwt
+credentials = authentication_ns.parser()
+credentials.add_argument(
+    'username', type=str, location='json', required=True,
+    help='`the username to authenticate with`',
+)
+credentials.add_argument(
+    'password', type=str, location='json', required=True,
+    help='`the password to authenticate with`',
 )

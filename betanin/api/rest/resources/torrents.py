@@ -2,7 +2,7 @@
 from betanin.api import events
 from betanin.api.jobs import import_torrents
 from betanin.extensions import db
-from betanin.api.rest.base import BaseResource
+from betanin.api.rest.base import SecureResource
 from betanin.api.rest.models import request as req_models
 from betanin.api.rest.models import response as resp_models
 from betanin.api.rest.namespaces import torrents_ns
@@ -10,7 +10,7 @@ from betanin.api.orm.models.torrent import Torrent
 
 
 @torrents_ns.route('/')
-class TorrentsResource(BaseResource):
+class TorrentsResource(SecureResource):
     @staticmethod
     @torrents_ns.doc(parser=req_models.torrents)
     @torrents_ns.marshal_list_with(resp_models.torrent)
@@ -26,7 +26,7 @@ class TorrentsResource(BaseResource):
 
 
 @torrents_ns.route('/<string:torrent_id>')
-class TorrentResource(BaseResource):
+class TorrentResource(SecureResource):
     @staticmethod
     @torrents_ns.doc(parser=req_models.torrent)
     def post(torrent_id):
@@ -53,7 +53,7 @@ class TorrentResource(BaseResource):
 
 
 @torrents_ns.route('/<string:torrent_id>/console/stdout')
-class StdoutResource(BaseResource):
+class StdoutResource(SecureResource):
     @staticmethod
     @torrents_ns.marshal_list_with(resp_models.line)
     def get(torrent_id):
@@ -63,7 +63,7 @@ class StdoutResource(BaseResource):
 
 
 @torrents_ns.route('/<string:torrent_id>/console/stdin')
-class StdinResource(BaseResource):
+class StdinResource(SecureResource):
     @staticmethod
     @torrents_ns.doc(parser=req_models.line)
     def post(torrent_id):
